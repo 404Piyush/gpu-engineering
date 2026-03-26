@@ -1,0 +1,17 @@
+mystery_func:
+    push   rbp
+    mov    rbp, rsp
+    mov    DWORD PTR [rbp-0x4], edi   ; input 'n' is passed in edi
+    mov    DWORD PTR [rbp-0x8], 0x1   ; result = 1
+    jmp    .L2
+.L3:
+    mov    eax, DWORD PTR [rbp-0x8]
+    imul   eax, DWORD PTR [rbp-0x4]
+    mov    DWORD PTR [rbp-0x8], eax
+    sub    DWORD PTR [rbp-0x4], 0x1
+.L2:
+    cmp    DWORD PTR [rbp-0x4], 0x0
+    jg     .L3
+    mov    eax, DWORD PTR [rbp-0x8]
+    pop    rbp
+    ret
