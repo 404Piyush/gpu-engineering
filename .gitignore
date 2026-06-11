@@ -46,3 +46,7 @@
 **/05_use_after_return
 **/06_signed_overflow
 **/06_signed_overflow.ubsan
+**/stride
+**/scaling
+**/faults_alloc
+**/page_faults
