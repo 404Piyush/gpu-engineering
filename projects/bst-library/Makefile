@@ -1,37 +1,61 @@
 CC      ?= clang
 ARCH    ?= -arch x86_64
-CFLAGS  ?= -O0 -g -Wall -Wextra -fno-omit-frame-pointer
-INCLUDE := -Iinclude
-SRC_DIR := src
+CFLAGS  ?= -O2 -Wall -Wextra -Wpedantic -std=c11 -Iinclude
+DEBUG_FLAGS ?= -O0 -g -fno-omit-frame-pointer
+
 BUILD   := build
-ASM     := asm
+LIB     := $(BUILD)/libbst.a
 
-SRCS    := $(wildcard $(SRC_DIR)/*.c)
-OBJS    := $(patsubst $(SRC_DIR)/%.c,$(BUILD)/%.o,$(SRCS))
-BIN     := $(BUILD)/bst_demo
+SRCS    := $(wildcard src/*.c)
+OBJS    := $(patsubst src/%.c,$(BUILD)/%.o,$(SRCS))
+HEADERS := $(wildcard include/*.h)
 
-all: $(BIN)
+# ---- library --------------------------------------------------------
+
+all: $(LIB) $(BUILD)/test_bst $(BUILD)/bench_bst
 
 $(BUILD):
 	@mkdir -p $@
 
-$(BUILD)/%.o: $(SRC_DIR)/%.c | $(BUILD)
-	$(CC) $(ARCH) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(BUILD)/%.o: src/%.c $(HEADERS) | $(BUILD)
+	$(CC) $(ARCH) $(CFLAGS) -c $< -o $@
 
-$(BIN): $(OBJS)
-	$(CC) $(ARCH) $(CFLAGS) $^ -o $@
+$(LIB): $(OBJS)
+	ar rcs $@ $^
 
-asm:
-	@mkdir -p $(ASM)
-	clang $(ARCH) -O0 -S -o $(ASM)/main.O0.s     $(INCLUDE) $(SRC_DIR)/main.c
-	clang $(ARCH) -O0 -S -o $(ASM)/student.O0.s  $(INCLUDE) $(SRC_DIR)/student.c
-	clang $(ARCH) -O2 -S -o $(ASM)/main.O2.s     $(INCLUDE) $(SRC_DIR)/main.c
-	clang $(ARCH) -O2 -S -o $(ASM)/student.O2.s  $(INCLUDE) $(SRC_DIR)/student.c
+# ---- tests ----------------------------------------------------------
 
-run: $(BIN)
-	./$(BIN)
+$(BUILD)/test_bst: tests/test_bst.c $(LIB) $(HEADERS) | $(BUILD)
+	$(CC) $(ARCH) $(CFLAGS) -Itests tests/test_bst.c $(LIB) -o $@
+
+test: $(BUILD)/test_bst
+	./$(BUILD)/test_bst
+
+# ---- benchmark ------------------------------------------------------
+
+$(BUILD)/bench_bst: bench/bench_bst.c $(LIB) $(HEADERS) | $(BUILD)
+	$(CC) $(ARCH) $(CFLAGS) -Ibench bench/bench_bst.c $(LIB) -o $@
+
+bench: $(BUILD)/bench_bst
+	./$(BUILD)/bench_bst $(N)
+
+# ---- examples -------------------------------------------------------
+
+$(BUILD)/wordcount: examples/wordcount.c $(LIB) $(HEADERS) | $(BUILD)
+	$(CC) $(ARCH) $(CFLAGS) -Iexamples examples/wordcount.c $(LIB) -o $@
+
+wordcount: $(BUILD)/wordcount
+	@echo "Try:  ./$(BUILD)/wordcount < examples/words.txt"
+	@if [ -f examples/words.txt ]; then ./$(BUILD)/wordcount < examples/words.txt; else echo "(no examples/words.txt)"; fi
+
+# ---- debug build ----------------------------------------------------
+
+debug: CFLAGS := $(DEBUG_FLAGS) -Wall -Wextra -Wpedantic -std=c11 -Iinclude
+debug: clean all
+
+# ---- housekeeping ---------------------------------------------------
 
 clean:
-	rm -rf $(BUILD) $(ASM)
+	rm -rf $(BUILD)
 
-.PHONY: all asm run clean
+.PHONY: all test bench wordcount debug clean

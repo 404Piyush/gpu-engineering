@@ -1,109 +1,134 @@
-# Arena Allocator v1
+# arena-allocator
 
-A simple, dependency-free **free-list memory allocator** written in
-C. Single 4 MiB mmap arena, 16-byte block headers, first-fit search,
-split-on-allocate, no coalesce. Demonstrates the core mechanics
-that underpin `glibc malloc`, `jemalloc`, and friends.
+A small, dependency-free **bump arena** memory allocator written in
+C11. Single 4 MiB mmap by default, O(1) alloc and free (free is a
+no-op), O(1) reset. Designed for the common "allocate a bunch of
+stuff, throw it all away at the end of the phase" pattern.
 
-This is the Week-8 project from the gpu-engineering curriculum: a
-two-week project that ties together the memory model from Weeks 5–7
-(memory layout, common bugs, debugging tools, virtual memory).
+This is the v1 allocator from the gpu-engineering curriculum's
+Month 2 "Memory is real" project. It is the simplest correct
+allocator design that doesn't fragment.
 
 ## Features
 
-* `mymalloc` / `myfree` with first-fit and split-on-allocate
-* Single mmap arena (4 MiB) — no `sbrk`, no thread cache
-* Minimal bookkeeping: 16-byte header per block; the free list is
-  threaded through the payload of free blocks (safe because the
-  user only writes to *allocated* blocks)
-* 5-test test suite (basic, 1k allocs, split, random pattern,
-  fragmentation)
-* Microbenchmark vs system `malloc`
+* O(1) `arena_alloc` and O(1) `arena_free` (no-op)
+* O(1) `arena_reset` — the headline feature
+* High-watermark tracking for free-space budgeting
+* 16-byte aligned payloads
+* Single `mmap` allocation, no `sbrk`, no per-allocation overhead
+* Standard C11, ~150 LOC, zero external dependencies
+* Test suite (9 tests) + microbenchmark + worked example + CI
 
 ## Quick start
 
 ```bash
-make            # builds libmyalloc.a, test_myalloc, bench
-make test       # runs the test suite
-make bench      # runs the microbenchmark vs system malloc
+make            # build libarena.a, test_arena, bench_arena
+make test       # run the test suite
+make bench      # microbenchmark vs system malloc
+make parse-demo # build + run the tokeniser example
 make clean
 ```
 
-## Public API
+## API
 
 ```c
-void  mymalloc_init(void);
-void  mymalloc_shutdown(void);
+#include <arena.h>
 
-void *mymalloc(size_t n);
-void  myfree(void *p);
+arena *arena_create(size_t bytes);
+void   arena_destroy(arena *a);
 
-size_t mymalloc_arena_size(void);
-size_t mymalloc_in_use(void);
-size_t mymalloc_free_bytes(void);
-size_t mymalloc_largest_free(void);
-int    mymalloc_fragment_count(void);
+void  *arena_alloc(arena *a, size_t bytes);
+void   arena_free (arena *a, void *p);     /* no-op */
+void   arena_reset(arena *a);              /* O(1): reset to empty */
+
+size_t arena_size     (const arena *a);    /* total capacity */
+size_t arena_in_use   (const arena *a);    /* bytes handed out */
+size_t arena_remaining(const arena *a);    /* bytes left */
+size_t arena_high_wat (const arena *a);    /* peak in-use */
 ```
 
-## Test results
+See [`docs/API.md`](./docs/API.md) for the full reference, including
+lifetime rules and patterns.
 
-```
-[1] basic alloc/free ... ok
-[2] 1000 small allocs ... ok
-[3] split + coalesce ... ok
-[4] random pattern (2k ops) ... (allocs=1068, frees=932, fails=0) ok
-[5] fragmentation measurement ... (big alloc succeeded, 9504 bytes) ok
-```
+## Example
 
-## Bench (vs glibc malloc, Apple M-series)
+```c
+#include <arena.h>
+#include <stdio.h>
+#include <string.h>
 
-| Block size | mine (s) | sys (s) | ratio  |
-|------------|----------|---------|--------|
-| 16         | 0.0011   | 0.0044  | 0.25x  |
-| 64         | 0.0011   | 0.0113  | 0.10x  |
-| 256        | 0.0025   | 0.0113  | 0.22x  |
-| 1024       | 0.0026   | 0.0078  | 0.33x  |
-| 4096       | 1.0667   | 0.0084  | 127x   |
+typedef struct { char *name; int age; } Person;
 
-The v1 allocator is **faster than glibc for small blocks** (less
-per-call overhead, no thread-safety, no size-class binning). It is
-**much slower for 4 KiB allocs** because the lack of coalescing
-causes the arena to fragment into thousands of small free blocks.
+int main(void) {
+    arena *a = arena_create(4096);
 
-## Files
+    /* Phase 1: parse a record */
+    Person *p = arena_alloc(a, sizeof(Person));
+    p->name = arena_alloc(a, 32);
+    strcpy(p->name, "Alice");
+    p->age = 30;
+    printf("%s is %d\n", p->name, p->age);
 
-```
-include/myalloc.h      public API
-src/myalloc.c          implementation
-tests/test_myalloc.c   test suite
-bench/bench.c          microbenchmark
-Makefile               build system
-README.md              this file
+    /* Phase 2: throw it all away at once. */
+    arena_reset(a);
+    /* arena is empty; ready for the next record. */
+
+    arena_destroy(a);
+    return 0;
+}
 ```
 
-## v1 limitations
+The `examples/parse_demo.c` is a more realistic tokeniser that uses
+the same pattern.
 
-* **No coalescing.** Adjacent free blocks don't merge. This is the
-  reason 4 KiB workloads fragment badly.
-* **No splitting on free.** The free list's blocks are exactly the
-  sizes that were allocated.
-* **First-fit is O(N_free).** A balanced tree (or a size-class
-  bin) would bring this down to O(log N) or O(1).
-* **Not thread-safe.** Add a mutex or per-thread arenas.
+## When to use an arena
 
-## What I'd do for v2
+* Compilers, parsers, renderers — anything with a "phase" of
+  allocation followed by a "phase" of consumption and discard.
+* Per-request memory pools in a server (create + reset per request).
+* Scratch space for benchmarks / fuzzing.
 
-1. **Coalesce on free.** Walk forward and backward from the
-   freed block, merging with adjacent free blocks.
-2. **Boundary tags.** Add a footer to each block so the previous
-   block can be found by reading `-sizeof(Header)`.
-3. **Size classes.** Round up to one of N power-of-two classes so
-   the free list can be split into N sub-lists, each O(1) to search.
-4. **Thread safety.** Per-thread arenas with periodic merging.
+## When NOT to use an arena
 
-## Acceptance criteria (Week 8)
+* If you need to free *individual* allocations before the phase
+  ends — arenas are bump-only and `arena_free` is a no-op.
+* If the lifetime of your allocations is unpredictable — use a
+  real free-list allocator (see
+  [404Piyush/arena-allocator](https://github.com/404Piyush/arena-allocator)
+  in v2, which adds per-allocation free).
+* If you need thread safety — add a mutex around `arena_alloc`.
 
-* [x] Allocator passes a 5-test smoke suite.
-* [x] Benchmarks vs `malloc` with reported numbers.
-* [x] Fragmentation experiment reproducible from `make test` and
-      `make bench`.
+## Performance
+
+`make bench` on an Apple M-series (numbers vary by machine, see
+`bench/RESULTS.md` for the captured run):
+
+```
+arena    1000000 :   0.005 s  (209 M ops/s)  high_wat=32000000
+reset               :   0.000 s
+malloc  1000000 :   0.025 s  ( 40 M ops/s)
+arena  cycle (1000 x 1000) :   0.007 s
+```
+
+The arena is **~5× faster** than system `malloc` for small
+allocations, and `reset` is essentially free (just a pointer
+assignment).
+
+## Project layout
+
+```
+include/         public API
+src/             implementation
+tests/           test suite
+bench/           microbenchmark + RESULTS.md
+examples/        parse_demo
+docs/            API.md, ARCHITECTURE.md, PATTERNS.md
+.github/         CI configuration
+Makefile         build system
+LICENSE          MIT
+CHANGELOG.md     release notes
+```
+
+## License
+
+MIT — see [`LICENSE`](./LICENSE).

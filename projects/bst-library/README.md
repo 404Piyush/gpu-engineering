@@ -1,94 +1,118 @@
 # bst-library
 
-A small, dependency-free **binary search tree** library written in C,
-with a small driver program that loads a fixed dataset of student
-records and exercises the API.
-
-This is the Month-1 capstone project from the gpu-engineering
-curriculum: it ties together everything from Weeks 1–4 (compilation
-pipeline, data representation, machine-level code, and debugging).
+A small, dependency-free **binary search tree** library written in C11.
+Generic over the key (via a user-supplied comparator) with a `void*`
+payload. Comes with a real test suite, a microbenchmark, a worked
+example, and CI on Linux + macOS.
 
 ## Features
 
-* `bst_insert`, `bst_find`, `bst_free` — basic BST operations
-* `bst_height`, `bst_inorder`, `bst_count_leaves` — recursive
-  tree-walking helpers
-* `bst_stats` — aggregates count + GPA min / max / sum in one pass
-* Recursive implementation; no global state
-* Configurable per-request optimisation flags via the standard
-  C compiler (`-O0` for debugging, `-O2` for benchmarks)
+* Public API in `include/bst.h` — clean, documented, no globals
+* Generic over key type: bring your own comparator (`bst_cmp_int`,
+  `bst_cmp_str` included; one for `int` and one for `char*`)
+* Standard BST operations: `insert`, `find`, `remove`, `inorder`,
+  `preorder`, `postorder`, `height`, `size`, `empty`
+* C11, ~250 LOC, no malloc-after-init leaks (every API has a clear
+  ownership rule)
+* Test suite with 8 test cases (lives in `tests/`)
+* Microbenchmark with phase timings (lives in `bench/`)
+* Worked example: `wordcount` reads stdin, prints unique sorted words
+* CI on Linux + macOS × {clang, gcc}
 
 ## Quick start
 
 ```bash
-make           # build the static library + demo
-make run       # run the demo
-make asm       # emit -O0 / -O2 assembly for the demo
+make          # build libbst.a, test_bst, bench_bst
+make test     # run the test suite
+make bench    # run the benchmark (default 100k keys)
+make wordcount # build + run the wordcount example
 make clean
-```
-
-## Files
-
-```
-include/student.h    public API
-src/student.c        implementation
-src/main.c           demo driver
-asm/                 generated -O0 / -O2 assembly (committed for reference)
-Makefile             build system
 ```
 
 ## API
 
 ```c
-typedef struct {
-    int   id;
-    char  name[32];
-    float gpa;
-} Student;
+#include <bst.h>
 
-Node *bst_insert(Node *root, Student s);
-Node *bst_find  (Node *root, int id);
-void  bst_free  (Node *root);
+bst *bst_create(bst_cmp_fn cmp);
+void bst_destroy(bst *t, bst_free_fn payload_free);
 
-int    bst_height        (Node *root);
-void   bst_inorder       (Node *root, Student *out, int *idx);
-int    bst_count_leaves  (Node *root);
+bool      bst_insert (bst *t, void *payload);
+bool      bst_remove (bst *t, const void *key, bst_free_fn payload_free);
+bst_node *bst_find   (const bst *t, const void *key);
 
-typedef struct {
-    int   count;
-    float gpa_sum;
-    float gpa_min;
-    float gpa_max;
-} Stats;
+size_t bst_size  (const bst *t);
+bool   bst_empty (const bst *t);
+int    bst_height(const bst *t);
 
-Stats bst_stats(Node *root);
+void bst_inorder  (const bst *t, bst_visit_fn visit, void *user);
+void bst_preorder (const bst *t, bst_visit_fn visit, void *user);
+void bst_postorder(const bst *t, bst_visit_fn visit, void *user);
+
+/* built-in comparators */
+int bst_cmp_int(const void *a, const void *b);
+int bst_cmp_str(const void *a, const void *b);
 ```
 
-## Demo output
+See [`docs/API.md`](./docs/API.md) for the full reference, including
+complexity notes and ownership rules.
+
+## Example
+
+```c
+#include <bst.h>
+#include <stdio.h>
+
+int main(void) {
+    bst *t = bst_create(bst_cmp_int);
+    int vs[] = { 5, 3, 7, 1, 4, 6, 9 };
+    for (size_t i = 0; i < sizeof(vs)/sizeof(vs[0]); i++)
+        bst_insert(t, &vs[i]);
+    bst_inorder(t, (bst_visit_fn)puts_int, NULL);  // 1 3 4 5 6 7 9
+    bst_destroy(t, NULL);
+}
+```
+
+The `wordcount` example in `examples/wordcount.c` does this with
+strings via stdin.
+
+## Performance
+
+`make bench` on an Apple M-series (numbers vary by machine, see
+`bench/RESULTS.md` for the captured run):
 
 ```
-Dataset size    : 10
-Tree height     : 4
-Leaf count      : 5
-Stats           : count=10 avg=3.56 min=3.00 max=3.95
-In-order (sorted by id):
-  id=1   name=Anaya    gpa=3.80
-  ...
-Lookups:
-  id=1  FOUND -> Anaya (gpa 3.80)
-  id=6  FOUND -> Sneha (gpa 3.85)
-  id=99 NOT FOUND
-  id=13 FOUND -> Rohan (gpa 3.10)
+insert  100000 :   0.034 s  (  2.94 M ops/s)  height=37
+find    100000 :   0.028 s  (  3.57 M ops/s)  hits=100000
+remove  100000 :   0.044 s  (  2.27 M ops/s)  removed=100000
 ```
 
-## What I learned
+Because the tree is **unbalanced**, sorted-input insertion produces
+a degenerate tree (height = n). If you need log-height guarantees
+without sorting your data first, see the *Caveats* section below.
 
-See [`asm-diff/README.md`](./asm-diff/README.md) for a walkthrough of
-the `-O0` vs `-O2` differences in the generated x86_64 assembly.
+## Caveats
 
-## Acceptance criteria (Month 1)
+* No balancing. For pathological inputs (already-sorted data) the
+  tree degenerates to a linked list.
+* No parent pointers, so iterators are single-pass.
+* Not thread-safe. Wrap calls in a mutex if you need it.
 
-* [x] Working 100+ LOC C program pushed to GitHub.
-* [x] Annotated assembly with stack frame notes.
-* [x] Crash / root-cause writeup.
-* [x] Self-test answers saved.
+## Project layout
+
+```
+include/         public API
+src/             implementation
+tests/           test suite
+bench/           microbenchmark + RESULTS.md
+examples/        wordcount
+docs/            API.md, ARCHITECTURE.md
+.github/         CI configuration
+Makefile         build system
+LICENSE          MIT
+CHANGELOG.md     release notes
+```
+
+## License
+
+MIT — see [`LICENSE`](./LICENSE).
