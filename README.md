@@ -20,7 +20,7 @@ under `projects/` here are kept for archival.
 |---|---|---|
 | `bst-library`     | Week 4 (Month-1 capstone) | https://github.com/404Piyush/bst-library |
 | `arena-allocator` | Week 8 (Month-2 project)  | https://github.com/404Piyush/arena-allocator |
-| `pipe-shell`      | Week 11 (planned)         | https://github.com/404Piyush/pipe-shell (TBD) |
+| `pipe-shell`      | Week 11 (Month-3 capstone) | https://github.com/404Piyush/pipe-shell |
 
 See each repo for its own test suite, benchmark, docs, and CI.
 
