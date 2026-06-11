@@ -1,0 +1,22 @@
+=================================================================
+==57537==ERROR: AddressSanitizer: attempting double-free on 0x602000000090 in thread T0:
+    #0 0x10dc8d559 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559)
+    #1 0x104df8b87 in bug_double_free buggy.c:34
+    #2 0x104df8a68 in main buggy.c:61
+    #3 0x20519f344  (<unknown module>)
+
+0x602000000090 is located 0 bytes inside of 4-byte region [0x602000000090,0x602000000094)
+freed by thread T0 here:
+    #0 0x10dc8d559 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559)
+    #1 0x104df8b7e in bug_double_free buggy.c:33
+    #2 0x104df8a68 in main buggy.c:61
+    #3 0x20519f344  (<unknown module>)
+
+previously allocated by thread T0 here:
+    #0 0x10dc8d410 in wrap_malloc+0xa0 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51410)
+    #1 0x104df8b71 in bug_double_free buggy.c:32
+    #2 0x104df8a68 in main buggy.c:61
+    #3 0x20519f344  (<unknown module>)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559) in wrap_free+0xa9
+==57537==ABORTING

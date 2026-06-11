@@ -34,3 +34,15 @@
 **/int_test2
 **/int_test3
 **/recursion
+**/buggy
+**/buggy_asan
+**/buggy_fixed
+**/buggy_fixed_asan
+**/usage
+**/01_oob_write
+**/02_uaf_read
+**/03_double_free
+**/04_leak
+**/05_use_after_return
+**/06_signed_overflow
+**/06_signed_overflow.ubsan
