@@ -1,8 +1,0 @@
-bytes      mine (sec)     sys (sec)      ratio     
-16         0.0011         0.0044         0.25      x
-64         0.0011         0.0113         0.10      x
-256        0.0025         0.0113         0.22      x
-1024       0.0026         0.0078         0.33      x
-4096       1.0667         0.0084         127.67    x
-
-Arena = 4194304 bytes, in-use = 0, free = 4118112, largest free = 4096, fragments = 4762
