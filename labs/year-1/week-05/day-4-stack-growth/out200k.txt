@@ -1,0 +1,4 @@
+recursing to depth 0, ~128 bytes of stack per level
+leaf local   = 0x304a6c170
+returned from 0 levels
+now recursing DEEP to 200000 levels...

@@ -1,0 +1,8 @@
+stack local (in main)  : 0x308f4a278
+heap   malloc(64)      : 0x6000027c01c0
+function marker()     : 0x102598e00
+stack local (in marker): 0x308f4a25c
+global g_init (.data)  : 0x10259a000
+global g_zero  (.bss)  : 0x10259a010
+string literal         : 0x102598eb7
+heap malloc(64)        : 0x6000027c0200

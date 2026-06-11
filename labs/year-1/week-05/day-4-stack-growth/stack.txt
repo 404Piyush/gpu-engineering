@@ -1,0 +1,23 @@
+recursing to depth 20000, ~128 bytes of stack per level
+leaf local   = 0x30c1a4990
+depth=1000    local = 0x30c1d3790
+depth=2000    local = 0x30c202590
+depth=3000    local = 0x30c231390
+depth=4000    local = 0x30c260190
+depth=5000    local = 0x30c28ef90
+depth=6000    local = 0x30c2bdd90
+depth=7000    local = 0x30c2ecb90
+depth=8000    local = 0x30c31b990
+depth=9000    local = 0x30c34a790
+depth=10000   local = 0x30c379590
+depth=11000   local = 0x30c3a8390
+depth=12000   local = 0x30c3d7190
+depth=13000   local = 0x30c405f90
+depth=14000   local = 0x30c434d90
+depth=15000   local = 0x30c463b90
+depth=16000   local = 0x30c492990
+depth=17000   local = 0x30c4c1790
+depth=18000   local = 0x30c4f0590
+depth=19000   local = 0x30c51f390
+depth=20000   local = 0x30c54e190
+returned

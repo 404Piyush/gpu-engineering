@@ -1,0 +1,36 @@
+all_bugs_ubsan_only.c:11:14: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+    #0 0x1046c8e1a in signed_overflow all_bugs_ubsan_only.c:11
+    #1 0x1046c8d64 in main all_bugs_ubsan_only.c:29
+    #2 0x20489e344  (<unknown module>)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior all_bugs_ubsan_only.c:11:14 in 
+all_bugs_ubsan_only.c:15:14: runtime error: shift exponent 32 is too large for 32-bit type 'int'
+    #0 0x1046c8e8d in shift_too_far all_bugs_ubsan_only.c:15
+    #1 0x1046c8d7e in main all_bugs_ubsan_only.c:30
+    #2 0x20489e344  (<unknown module>)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior all_bugs_ubsan_only.c:15:14 in 
+all_bugs_ubsan_only.c:19:12: runtime error: load of null pointer of type 'int'
+    #0 0x1046c8ecd in null_deref all_bugs_ubsan_only.c:19
+    #1 0x1046c8d9f in main all_bugs_ubsan_only.c:32
+    #2 0x20489e344  (<unknown module>)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior all_bugs_ubsan_only.c:19:12 in 
+UndefinedBehaviorSanitizer:DEADLYSIGNAL
+==57163==ERROR: UndefinedBehaviorSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0001046c8ed2 bp 0x00030d047150 sp 0x00030d047140 T1825376)
+==57163==The signal is caused by a READ memory access.
+==57163==Hint: address points to the zero page.
+    #0 0x1046c8ed2 in null_deref all_bugs_ubsan_only.c:19
+    #1 0x1046c8d9f in main all_bugs_ubsan_only.c:32
+    #2 0x20489e344  (<unknown module>)
+
+==57163==Register values:
+rax = 0x0000000000000000  rbx = 0x000000010d101c40  rcx = 0x0000000000000000  rdx = 0x0000000000000000  
+rdi = 0x0000000000000000  rsi = 0x0000000000000000  rbp = 0x000000030d047150  rsp = 0x000000030d047140  
+ r8 = 0x000000010d356000   r9 = 0x0000000000000002  r10 = 0xefffffffffffffff  r11 = 0x4000000000000000  
+r12 = 0x000000030d0471b0  r13 = 0x0000000000000000  r14 = 0x00000001046c8d40  r15 = 0x000000030d047320  
+UndefinedBehaviorSanitizer can not provide additional info.
+SUMMARY: UndefinedBehaviorSanitizer: SEGV all_bugs_ubsan_only.c:19 in null_deref
+==57163==ABORTING
+big+1 = -2147483648
+shift = 1

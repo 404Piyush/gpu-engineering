@@ -1,0 +1,20 @@
+=================================================================
+==56678==ERROR: AddressSanitizer: attempting double-free on 0x603000001b40 in thread T0:
+    #0 0x10b98d559 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559)
+    #1 0x102ab3e8e in main double_free.c:17
+    #2 0x202e5e344  (<unknown module>)
+
+0x603000001b40 is located 0 bytes inside of 32-byte region [0x603000001b40,0x603000001b60)
+freed by thread T0 here:
+    #0 0x10b98d559 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559)
+    #1 0x102ab3e85 in main double_free.c:16
+    #2 0x202e5e344  (<unknown module>)
+
+previously allocated by thread T0 here:
+    #0 0x10b98d410 in wrap_malloc+0xa0 (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51410)
+    #1 0x102ab3e48 in main double_free.c:12
+    #2 0x202e5e344  (<unknown module>)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x51559) in wrap_free+0xa9
+==56678==ABORTING
+p = 0x603000001b40
