@@ -1,0 +1,21 @@
+# macOS / Clang artefacts
+*.dSYM/
+.DS_Store
+
+# build/ directories hold intermediate object files and the binary — local only.
+**/build/
+
+# Built executables (we commit sources, run locally)
+**/prologue
+**/locals
+**/loops
+**/ifelse
+**/target
+**/weekend
+**/reconstruct
+**/a.out
+**/crash_null
+**/overflow
+**/overflow_no_canary
+**/bst_demo
+**/crash
