@@ -5,33 +5,36 @@ Twelve months, twelve deep-dive projects, one capstone.
 
 ## Curriculum map
 
-| Month | Theme | Weeks |
+| Month | Theme                          | Weeks |
 |------:|-------|-------|
-| 1     | The C machine                     | 1–4   |
-| 2     | Memory is real                   | 5–8   |
-| 3     | Syscalls & process model          | 9–12  |
+| 1     | The C machine                  | 1–4   |
+| 2     | Memory is real                 | 5–8   |
+| 3     | Syscalls & process model        | 9–12  |
+
+## Standalone projects
+
+Each major milestone lives in its own public repo. The mirrors
+under `projects/` here are kept for archival.
+
+| Project | Curriculum origin | Repo |
+|---|---|---|
+| `bst-library`     | Week 4 (Month-1 capstone) | https://github.com/404Piyush/bst-library |
+| `arena-allocator` | Week 8 (Month-2 project)  | https://github.com/404Piyush/arena-allocator |
+| `pipe-shell`      | Week 11 (planned)         | https://github.com/404Piyush/pipe-shell (TBD) |
+
+See each repo for its own test suite, benchmark, docs, and CI.
 
 ## Folder layout
 
 ```
-labs/         one sub-folder per week; each sub-folder has day-N-* sub-folders
-notes/        one .md per week in the style of a personal learning journal
-projects/     standalone, non-generic, professional-grade projects (one per major milestone)
-vision.pdf    the original curriculum document
+projects/             one sub-folder per standalone project (mirrors)
+labs/                 per-week day-N-* sub-folders
+notes/                per-week .md journal entries
+vision.pdf            the original curriculum document
 ```
-
-## Projects (standalone repos, mirrored here)
-
-| Project                              | Origin | What it does |
-|--------------------------------------|--------|--------------|
-| [`bst-library`](./projects/bst-library)       | Week 4  | 100+ LOC multi-file BST library with recursion, arrays, structs, pointers, asm walkthrough. |
-| [`arena-allocator`](./projects/arena-allocator) | Week 8  | First-fit free-list allocator, 5-test suite, microbenchmark vs `malloc`. |
-| `pipe-shell` (planned)               | Week 11 | Minimal POSIX shell with prompt, parser, exec, builtins, tests. |
-
-Each `projects/<name>/` is designed to be split out into its own
-public repo at a later date.
 
 ## Labs & notes (per-week content)
 
-See `notes/` for the per-week journal entries, and `labs/` for the
-day-by-day exercises. Both follow the same `year-1/week-NN/` layout.
+See `notes/` for the per-week journal entries, and `labs/` for
+the day-by-day exercises. Both follow the same `year-1/week-NN/`
+layout.
