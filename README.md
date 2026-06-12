@@ -58,6 +58,7 @@ By month 12 I want to be able to:
 |---|---|
 | Curriculum origin | Week 4 (Month-1 capstone) |
 | Source | **[github.com/404Piyush/bst-library](https://github.com/404Piyush/bst-library)** |
+| Live site | **[bst-library.404piyush.me](https://bst-library.404piyush.me)** |
 | Mirror | [`projects/bst-library/`](projects/bst-library) |
 | LOC | ~500 |
 | Tests | **74 assertions, 8 cases — all passing** |
@@ -86,6 +87,7 @@ cd bst-library && make test
 |---|---|
 | Curriculum origin | Week 8 (Month-2 project) |
 | Source | **[github.com/404Piyush/arena-allocator](https://github.com/404Piyush/arena-allocator)** |
+| Live site | **[arena-allocator.404piyush.me](https://arena-allocator.404piyush.me)** |
 | Mirror | [`projects/arena-allocator/`](projects/arena-allocator) |
 | LOC | ~300 |
 | Tests | **143 assertions, 9 cases — all passing** |
@@ -115,6 +117,7 @@ cd arena-allocator && make test && make bench
 |---|---|
 | Curriculum origin | Week 11 (Month-3 capstone) |
 | Source | **[github.com/404Piyush/pipe-shell](https://github.com/404Piyush/pipe-shell)** |
+| Live site | **[pipe-shell.404piyush.me](https://pipe-shell.404piyush.me)** |
 | Mirror | [`projects/pipe-shell/`](projects/pipe-shell) |
 | LOC | ~500 |
 | Tests | **56 assertions, 13 cases — all passing** |
