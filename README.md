@@ -1,13 +1,18 @@
 # gpu-engineering
 
-A twelve-month, twelve-project curriculum aimed at becoming a
-GPU-systems engineer. The repo tracks the journey: every
-week, every program, every reference, every mistake.
+A three-year systems and hardware roadmap aimed at becoming
+a GPU engineer. The repo tracks the journey: every week,
+every program, every reference, every mistake.
+
+## Standalone projects
+
+Three weeks so far produced projects polished enough to
+ship as standalone public repos. More projects incoming.
 
 ## Standalone projects
 
 Three of the weeks produced projects polished enough to ship
-as standalone public repos.
+as standalone public repos. More projects incoming.
 
 | Project | Source | Live site | What it is |
 |---|---|---|---|
@@ -20,12 +25,19 @@ architecture and API documentation, and CI on Linux + macOS.
 
 ## Curriculum map
 
+| Year | Theme | Status |
+|---|---|---|
+| 1 | The C machine, memory, and the process model (weeks 1 to 11) | in progress |
+| 2 | Systems programming, networking, parallelism (planned) | upcoming |
+| 3 | GPU engineering (planned) | upcoming |
+
+Year 1 is broken into three months:
+
 | Month | Theme | Weeks |
 |---|---|---|
 | 1 | The C machine | 1 to 4 |
 | 2 | Memory is real | 5 to 8 |
 | 3 | Syscalls and the process model | 9 to 11 |
-| 4+ | GPU engineering | 12+ (planned) |
 
 ## Per-week content
 
@@ -64,7 +76,7 @@ notes/year-1/week-NN.md            per-week journal
 - [PROJECTS.md](PROJECTS.md) — full deep-dive on each standalone
   project (architecture, API, benchmarks).
 - [CHANGELOG.md](CHANGELOG.md) — what changed in each weekly commit.
-- [DEPLOY.md](DEPLOY.md) — Netlify deployment runbook for the
+- [DEPLOY.md](DEPLOY.md) — Vercel deployment runbook for the
   three live sites.
 - [DNS.md](DNS.md) — the three CNAMEs to add at the DNS provider.
 
