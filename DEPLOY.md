@@ -1,74 +1,45 @@
-# Deployment cheatsheet
+# Deployment
 
 Each of the three standalone projects ships with a static
 landing page under `site/` and a `netlify.toml` that
-auto-deploys it.  This document is the one-page runbook for
-getting all three live on the `*.404piyush.me` subdomains.
+auto-deploys it. The three sites are already deployed to
+Netlify and have their custom domains set. This document
+is the one-page runbook if you ever need to redeploy from
+scratch or add a new project.
 
-## One-time per project (~5 minutes each)
+## Netlify state
 
-For each of:
+| Project | Netlify URL | Custom domain |
+|---|---|---|
+| bst-library | https://bst-library.netlify.app | bst-library.404piyush.me |
+| arena-allocator | https://arena-allocator.netlify.app | arena-allocator.404piyush.me |
+| pipe-shell | https://pipe-shell.netlify.app | pipe-shell.404piyush.me |
 
-- https://github.com/404Piyush/bst-library
-- https://github.com/404Piyush/arena-allocator
-- https://github.com/404Piyush/pipe-shell
+Each Netlify site is linked to the corresponding GitHub
+repo. Every push to `main` redeploys automatically.
 
-1. **Netlify → New site from Git**
-   https://app.netlify.com/start
-2. Pick **GitHub** → the repo.
-3. Netlify auto-detects `netlify.toml`.  Confirm:
-   - Build command: *(empty)*
+## Redeploy from scratch
+
+For each of the three repos:
+
+1. Go to https://app.netlify.com/start and click
+   **Import an existing project**.
+2. Pick **GitHub** and the repo.
+3. Netlify will detect `netlify.toml`. Confirm:
+   - Build command: empty
    - Publish directory: `site`
-4. Click **Deploy site**.  You'll get a random
-   `*.netlify.app` URL in ~30 seconds.
+4. Click **Deploy site**. You will get a random
+   `*.netlify.app` URL in about 30 seconds.
 
 ## Add the custom domain
 
-In Netlify → **Site settings** → **Domain management** →
-**Add custom domain** → enter the subdomain:
+In Netlify, go to **Site settings** then
+**Domain management** then **Add custom domain**, and
+enter:
 
-| Repo | Subdomain |
-|---|---|
-| bst-library | `bst-library.404piyush.me` |
-| arena-allocator | `arena-allocator.404piyush.me` |
-| pipe-shell | `pipe-shell.404piyush.me` |
-
-Netlify will print the CNAME target (e.g.
-`calm-panda-a1b2c3.netlify.app`).
-
-## DNS records
-
-Go to your DNS provider for `404piyush.me` and add three
-CNAMEs:
-
-| Type | Name | Target |
-|---|---|---|
-| CNAME | bst-library | `<bst-netlify>.netlify.app` |
-| CNAME | arena-allocator | `<arena-netlify>.netlify.app` |
-| CNAME | pipe-shell | `<pipe-netlify>.netlify.app` |
-
-> If your DNS provider doesn't support CNAME at the
-> subdomain level (rare), use an A record pointing to
-> Netlify's load balancer IP — they print the right value
-> in the Netlify UI.
-
-## Verify
-
-After DNS propagates (5–30 min):
-
-```sh
-for sub in bst-library arena-allocator pipe-shell; do
-    curl -sI "https://$sub.404piyush.me" | head -1
-done
-```
-
-All three should return `HTTP/2 200`.
-
-## Continuous deploy
-
-Every push to `main` (or `master`) of each project
-redeploys its site automatically — no further action
-needed.
+- `bst-library.404piyush.me`
+- `arena-allocator.404piyush.me`
+- `pipe-shell.404piyush.me`
 
 ## Local preview
 
@@ -80,5 +51,7 @@ python3 -m http.server 8000
 
 ## Per-project details
 
-See `DEPLOY.md` inside each repo for the same instructions
-on a per-project basis.
+Each standalone repo has its own `DEPLOY.md` with the same
+instructions scoped to that project.
+
+For DNS, see [DNS.md](DNS.md).
