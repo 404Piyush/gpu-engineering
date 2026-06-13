@@ -1,0 +1,22 @@
+Host: Darwin 23.6.0 Darwin Kernel Version 23.6.0: Mon Jul 29 21:14:21 PDT 2024; root:xnu-10063.141.2~1/RELEASE_ARM64_T8103 arm64
+Date: Sat Jun 13 12:35:31 IST 2026
+=== arena_alloc_1M ===
+  command: /tmp/arena-allocator/build/bench_arena 1000000
+arena_alloc_1M                 wall=0.03     user=0.03     sys=0.03     rss=41254912
+=== arena_cycle_1k_x_1k ===
+  command: /tmp/arena-allocator/build/bench_arena 1000000
+arena_cycle_1k_x_1k            wall=0.04     user=0.04     sys=0.04     rss=41254912
+=== arena_alloc_5M ===
+  command: /tmp/arena-allocator/build/bench_arena 5000000
+arena_alloc_5M                 wall=0.15     user=0.15     sys=0.15     rss=201490432
+=== pipe_ls_grep_wc ===
+  command: /tmp/pipe-shell/pipe-shell --run ls /tmp | grep Mini | wc -l
+pipe_ls_grep_wc                wall=0.02     user=0.02     sys=0.02     rss=1474560
+=== pipe_4stage ===
+  command: /tmp/pipe-shell/pipe-shell --run cat /etc/hosts | awk '{print $1}' | head -1 | wc -c
+pipe_4stage                    wall=0.00     user=0.00     sys=0.00     rss=1556480
+=== pipe_builtin_cd ===
+  command: /tmp/pipe-shell/pipe-shell --run cd /tmp && pwd
+pipe_builtin_cd                wall=0.00     user=0.00     sys=0.00     rss=1146880
+=== pipe_1000_pipelines ===
+pipe_1000_pipelines  1000 pipelines in 3s  -> 333 pipelines/s

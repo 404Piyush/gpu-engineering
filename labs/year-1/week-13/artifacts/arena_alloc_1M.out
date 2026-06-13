@@ -1,0 +1,4 @@
+arena  1000000 :   0.002 s  (434971719 ops/s)  high_wat=32000000
+reset       :   0.000 s
+malloc 1000000 :   0.011 s  ( 88206757 ops/s)
+arena  cycle (1000 x 1000) :   0.002 s

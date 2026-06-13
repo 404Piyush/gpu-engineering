@@ -57,13 +57,14 @@ notes/year-1/week-NN.md            per-week journal
 | 9 | Processes (fork / exec / wait) + tracing | done | `notes/year-1/week-09.md`, `labs/year-1/week-09/` |
 | 10 | Pipes + redirection building blocks | done | `notes/year-1/week-10.md`, `labs/year-1/week-10/` |
 | 11 | Mini shell v1 (parser, executor, tests) | done | standalone: [404Piyush/pipe-shell](https://github.com/404Piyush/pipe-shell) |
-| 12 | Mini shell v2 (arbitrary pipelines, redirection hardening) + write-up | upcoming | |
+| 12 | Mini shell v2 (multiple redirects per stage, `2>`, write-up) | done | `notes/year-1/week-12.md`, `labs/year-1/week-12/` |
+| 13 | Performance baseline (CPU/RSS, hot-spot sampling) | done | `notes/year-1/week-13.md`, `labs/year-1/week-13/` |
 
 ### Year 1, Months 4-6 (weeks 13-24): profiling, concurrency, cache
 
 | Week(s) | Topic | Status |
 |---|---|---|
-| 13 to 14 | Performance measurement tools (perf, flamegraphs) | upcoming |
+| 14 to 16 | Performance measurement tools + optimization project (narrow scope, before/after) | in progress (week 13 done) |
 | 15 to 16 | Optimization project (narrow scope, before/after) | upcoming |
 | 17 to 18 | Threads and synchronization (mutex, atomics, thread pool) | upcoming |
 | 19 to 20 | Multithreaded performance project (contention story) | upcoming |

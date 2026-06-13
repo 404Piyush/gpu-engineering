@@ -1,0 +1,251 @@
+Sampling process 59093 for 5 seconds with 1 millisecond of run time between samples
+Sampling completed, processing symbols...
+Sample analysis of process 59093 written to file /tmp/zsh_2026-06-13_123837_Dw4g.sample.txt
+
+Analysis of sampling zsh (pid 59093) every 1 millisecond
+Process:         zsh [59093]
+Path:            /bin/zsh
+Load Address:    0x102c70000
+Identifier:      zsh
+Version:         100.120.1
+Code Type:       ARM64E
+Platform:        macOS
+Parent Process:  zsh [59092]
+
+Date/Time:       2026-06-13 12:38:37.000 +0530
+Launch Time:     2026-06-13 12:38:36.637 +0530
+OS Version:      macOS 14.6.1 (23G93)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         161.2M
+Physical footprint (peak):  161.2M
+Idle exit:                  untracked
+----
+
+Call graph:
+    4220 Thread_2707062   DispatchQueue_1: com.apple.main-thread  (serial)
+      4220 start  (in dyld) + 2476  [0x189797154]
+        4220 zsh_main  (in zsh) + 1176  [0x102ca3400]
+          4220 init_misc  (in zsh) + 152  [0x102ca286c]
+            4220 execstring  (in zsh) + 132  [0x102c85490]
+              4220 execode  (in zsh) + 204  [0x102c85580]
+                4220 execlist  (in zsh) + 1936  [0x102c85d3c]
+                  4220 ???  (in zsh)  load address 0x102c70000 + 0x163dc  [0x102c863dc]
+                    4220 ???  (in zsh)  load address 0x102c70000 + 0x1b3c8  [0x102c8b3c8]
+                      4220 ???  (in zsh)  load address 0x102c70000 + 0x1daa0  [0x102c8daa0]
+                        4220 execlist  (in zsh) + 1936  [0x102c85d3c]
+                          4220 ???  (in zsh)  load address 0x102c70000 + 0x163dc  [0x102c863dc]
+                            4220 ???  (in zsh)  load address 0x102c70000 + 0x1b3c8  [0x102c8b3c8]
+                              4220 ???  (in zsh)  load address 0x102c70000 + 0x1d958  [0x102c8d958]
+                                4205 execfor  (in zsh) + 1072  [0x102cae174]
+                                + 4202 execlist  (in zsh) + 1936  [0x102c85d3c]
+                                + ! 3635 ???  (in zsh)  load address 0x102c70000 + 0x16888  [0x102c86888]
+                                + ! : 3635 waitjobs  (in zsh) + 72  [0x102ca6b38]
+                                + ! :   3634 ???  (in zsh)  load address 0x102c70000 + 0x39084  [0x102ca9084]
+                                + ! :   | 3634 signal_suspend  (in zsh) + 76  [0x102cd3d60]
+                                + ! :   |   3627 __sigsuspend  (in libsystem_kernel.dylib) + 8  [0x189aeebc0]
+                                + ! :   |   6 _sigtramp  (in libsystem_platform.dylib) + 56  [0x189b52584]
+                                + ! :   |   + 6 zhandler  (in zsh) + 328  [0x102cd39dc]
+                                + ! :   |   +   4 wait_for_processes  (in zsh) + 840  [0x102cd40b4]
+                                + ! :   |   +   ! 3 update_job  (in zsh) + 1352  [0x102ca5148]
+                                + ! :   |   +   ! : 2 printjob  (in zsh) + 728  [0x102ca56d0]
+                                + ! :   |   +   ! : | 1 ???  (in zsh)  load address 0x102c70000 + 0x360c8  [0x102ca60c8]
+                                + ! :   |   +   ! : | + 1 fetchvalue  (in zsh) + 92  [0x102cbdd70]
+                                + ! :   |   +   ! : | +   1 itype_end  (in zsh) + 192  [0x102ce5f14]
+                                + ! :   |   +   ! : | 1 ???  (in zsh)  load address 0x102c70000 + 0x360ec  [0x102ca60ec]
+                                + ! :   |   +   ! : |   1 fetchvalue  (in zsh) + 588  [0x102cbdf60]
+                                + ! :   |   +   ! : |     1 ???  (in zsh)  load address 0x102c70000 + 0x49c14  [0x102cb9c14]
+                                + ! :   |   +   ! : |       1 gethashnode2  (in zsh) + 40  [0x102c973d4]
+                                + ! :   |   +   ! : |         1 hasher  (in zsh) + 20  [0x102c97030]
+                                + ! :   |   +   ! : 1 printjob  (in zsh) + 752  [0x102ca56e8]
+                                + ! :   |   +   ! :   1 freejob  (in zsh) + 52  [0x102ca66b4]
+                                + ! :   |   +   ! :     1 free_tiny  (in libsystem_malloc.dylib) + 136  [0x189936588]
+                                + ! :   |   +   ! :       1 DYLD-STUB$$_platform_memset  (in libsystem_malloc.dylib) + 0  [0x189964090]
+                                + ! :   |   +   ! 1 update_job  (in zsh) + 1192  [0x102ca50a8]
+                                + ! :   |   +   !   1 storepipestats  (in zsh) + 0  [0x102ca4a5c]
+                                + ! :   |   +   1 wait_for_processes  (in zsh) + 112  [0x102cd3ddc]
+                                + ! :   |   +   ! 1 __wait4_nocancel  (in libsystem_kernel.dylib) + 0  [0x189aed320]
+                                + ! :   |   +   1 wait_for_processes  (in zsh) + 740  [0x102cd4050]
+                                + ! :   |   +     1 __kill  (in libsystem_kernel.dylib) + 28  [0x189ae9020]
+                                + ! :   |   +       1 cerror_nocancel  (in libsystem_kernel.dylib) + 4  [0x189ae17b4]
+                                + ! :   |   1 __sigsuspend  (in libsystem_kernel.dylib) + 28  [0x189aeebd4]
+                                + ! :   |     1 cerror  (in libsystem_kernel.dylib) + 44  [0x189ae26b4]
+                                + ! :   |       1 _pthread_exit_if_canceled  (in libsystem_pthread.dylib) + 40  [0x189b1bab0]
+                                + ! :   |         1 __pthread_canceled  (in libsystem_kernel.dylib) + 8  [0x189aed030]
+                                + ! :   1 ???  (in zsh)  load address 0x102c70000 + 0x390e4  [0x102ca90e4]
+                                + ! :     1 signal_block  (in zsh) + 40  [0x102cd3c30]
+                                + ! :       1 sigprocmask  (in libsystem_kernel.dylib) + 8  [0x189ae44b8]
+                                + ! 563 ???  (in zsh)  load address 0x102c70000 + 0x163dc  [0x102c863dc]
+                                + ! : 561 ???  (in zsh)  load address 0x102c70000 + 0x1b3c8  [0x102c8b3c8]
+                                + ! : | 559 ???  (in zsh)  load address 0x102c70000 + 0x1cbb4  [0x102c8cbb4]
+                                + ! : | + 373 ???  (in zsh)  load address 0x102c70000 + 0x1e3d4  [0x102c8e3d4]
+                                + ! : | + ! 372 ???  (in zsh)  load address 0x102c70000 + 0x17e4c  [0x102c87e4c]
+                                + ! : | + ! : 284 fork  (in libsystem_c.dylib) + 56  [0x1899dacdc]
+                                + ! : | + ! : | 284 __fork  (in libsystem_kernel.dylib) + 20  [0x189ae88ec]
+                                + ! : | + ! : 83 fork  (in libsystem_c.dylib) + 112  [0x1899dad14]
+                                + ! : | + ! : | 22 libSystem_atfork_parent  (in libSystem.B.dylib) + 44  [0x1967a6514]
+                                + ! : | + ! : | + 21 dispatch_atfork_parent  (in libdispatch.dylib) + 16  [0x18996ed70]
+                                + ! : | + ! : | + ! 19 _objc_atfork_parent  (in libobjc.A.dylib) + 216  [0x18975d35c]
+                                + ! : | + ! : | + ! 2 _objc_atfork_parent  (in libobjc.A.dylib) + 32  [0x18975d2a4]
+                                + ! : | + ! : | + !   2 os_unfair_recursive_lock_unlock  (in libsystem_platform.dylib) + 28  [0x189b4f6c4]
+                                + ! : | + ! : | + 1 _voucher_atfork_parent  (in libdispatch.dylib) + 4  [0x189997a7c]
+                                + ! : | + ! : | 18 _pthread_atfork_parent_handlers  (in libsystem_pthread.dylib) + 76  [0x189b2180c]
+                                + ! : | + ! : | + 18 pthread_mutex_unlock  (in libsystem_pthread.dylib) + 72  [0x189b1ca8c]
+                                + ! : | + ! : | 14 libSystem_atfork_parent  (in libSystem.B.dylib) + 28  [0x1967a6504]
+                                + ! : | + ! : | + 7 _malloc_fork_parent  (in libsystem_malloc.dylib) + 132  [0x1899419c8]
+                                + ! : | + ! : | + ! 7 szone_force_unlock  (in libsystem_malloc.dylib) + 244,52,...  [0x189941b28,0x189941a68,...]
+                                + ! : | + ! : | + 7 _malloc_fork_parent  (in libsystem_malloc.dylib) + 168  [0x1899419ec]
+                                + ! : | + ! : | 12 libSystem_atfork_parent  (in libSystem.B.dylib) + 24  [0x1967a6500]
+                                + ! : | + ! : | + 6 _pthread_atfork_parent  (in libsystem_pthread.dylib) + 52  [0x189b2177c]
+                                + ! : | + ! : | + ! 6 os_unfair_lock_unlock  (in libsystem_platform.dylib) + 8  [0x189b4f56c]
+                                + ! : | + ! : | + 6 os_unfair_lock_unlock  (in libsystem_platform.dylib) + 8  [0x189b4f56c]
+                                + ! : | + ! : | 6 libSystem_atfork_parent  (in libSystem.B.dylib) + 36  [0x1967a650c]
+                                + ! : | + ! : | + 6 os_unfair_lock_unlock  (in libsystem_platform.dylib) + 8  [0x189b4f56c]
+                                + ! : | + ! : | 6 libSystem_atfork_parent  (in libSystem.B.dylib) + 4  [0x1967a64ec]
+                                + ! : | + ! : | 5 libSystem_atfork_parent  (in libSystem.B.dylib) + 32  [0x1967a6508]
+                                + ! : | + ! : |   5 cc_atfork_parent  (in libcorecrypto.dylib) + 72  [0x189893380]
+                                + ! : | + ! : |     5 ccrng_atfork_parent  (in libcorecrypto.dylib) + 24  [0x1898a933c]
+                                + ! : | + ! : |       5 ccrng_process_atfork_parent  (in libcorecrypto.dylib) + 20  [0x1898bdf6c]
+                                + ! : | + ! : |         5 os_unfair_lock_unlock  (in libsystem_platform.dylib) + 8  [0x189b4f56c]
+                                + ! : | + ! : 4 fork  (in libsystem_c.dylib) + 36  [0x1899dacc8]
+                                + ! : | + ! : | 4 libSystem_atfork_prepare  (in libSystem.B.dylib) + 40  [0x1967a64b8]
+                                + ! : | + ! : |   4 xpc_atfork_prepare  (in libxpc.dylib) + 80  [0x189839988]
+                                + ! : | + ! : |     4 mach_ports_register  (in libsystem_kernel.dylib) + 128  [0x189ae8894]
+                                + ! : | + ! : |       4 _kernelrpc_mach_ports_register3  (in libsystem_kernel.dylib) + 144  [0x189b0b2c0]
+                                + ! : | + ! : |         4 mach_msg2_internal  (in libsystem_kernel.dylib) + 80  [0x189af35e4]
+                                + ! : | + ! : |           4 mach_msg2_trap  (in libsystem_kernel.dylib) + 8  [0x189ae0df4]
+                                + ! : | + ! : 1 fork  (in libsystem_c.dylib) + 0  [0x1899daca4]
+                                + ! : | + ! 1 ???  (in zsh)  load address 0x102c70000 + 0x17e58  [0x102c87e58]
+                                + ! : | + 173 ???  (in zsh)  load address 0x102c70000 + 0x1e55c  [0x102c8e55c]
+                                + ! : | + ! 173 read_loop  (in zsh) + 44  [0x102ce51d4]
+                                + ! : | + !   173 read  (in libsystem_kernel.dylib) + 8  [0x189ae19b4]
+                                + ! : | + 11 ???  (in zsh)  load address 0x102c70000 + 0x1e638  [0x102c8e638]
+                                + ! : | + ! 10 addproc  (in zsh) + 60  [0x102ca67e4]
+                                + ! : | + ! : 10 zshcalloc  (in zsh) + 24  [0x102cb32ec]
+                                + ! : | + ! :   10 zalloc  (in zsh) + 56  [0x102cb24bc]
+                                + ! : | + ! :     9 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 92  [0x189932afc]
+                                + ! : | + ! :     | 9 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 292  [0x189933d70]
+                                + ! : | + ! :     |   5 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 1272  [0x1899348e0]
+                                + ! : | + ! :     |   4 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 1376  [0x189934948]
+                                + ! : | + ! :     |     4 _tiny_check_and_zero_inline_meta_from_freelist  (in libsystem_malloc.dylib) + 56  [0x189962b8c]
+                                + ! : | + ! :     1 _malloc_zone_malloc  (in libsystem_malloc.dylib) + 0  [0x18995b91c]
+                                + ! : | + ! 1 addproc  (in zsh) + 240  [0x102ca6898]
+                                + ! : | + 1 ???  (in zsh)  load address 0x102c70000 + 0x1e3c0  [0x102c8e3c0]
+                                + ! : | + ! 1 signal_block  (in zsh) + 40  [0x102cd3c30]
+                                + ! : | + !   1 sigprocmask  (in libsystem_kernel.dylib) + 8  [0x189ae44b8]
+                                + ! : | + 1 ???  (in zsh)  load address 0x102c70000 + 0x1e3c8  [0x102c8e3c8]
+                                + ! : | +   1 __pipe  (in libsystem_kernel.dylib) + 12  [0x189ae7370]
+                                + ! : | 1 ???  (in zsh)  load address 0x102c70000 + 0x1c18c  [0x102c8c18c]
+                                + ! : | + 1 gethashnode  (in zsh) + 40  [0x102c97358]
+                                + ! : | +   1 hasher  (in zsh) + 36  [0x102c97040]
+                                + ! : | 1 ???  (in zsh)  load address 0x102c70000 + 0x1c2f4  [0x102c8c2f4]
+                                + ! : |   1 setunderscore  (in zsh) + 148  [0x102c871a4]
+                                + ! : |     1 _platform_strcpy  (in libsystem_platform.dylib) + 48  [0x189b4fc0c]
+                                + ! : |       1 _platform_memmove  (in libsystem_platform.dylib) + 448  [0x189b52360]
+                                + ! : 2 ???  (in zsh)  load address 0x102c70000 + 0x1b3a0  [0x102c8b3a0]
+                                + ! :   2 ???  (in zsh)  load address 0x102c70000 + 0x1b504  [0x102c8b504]
+                                + ! :     1 ecgetredirs  (in zsh) + 120  [0x102cc464c]
+                                + ! :     + 1 ecgetstr  (in zsh) + 136  [0x102cc43ac]
+                                + ! :     1 ecgetredirs  (in zsh) + 0  [0x102cc45d4]
+                                + ! 3 ???  (in zsh)  load address 0x102c70000 + 0x164f8  [0x102c864f8]
+                                + ! 1 ???  (in zsh)  load address 0x102c70000 + 0x161e8  [0x102c861e8]
+                                + !   1 signal_block  (in zsh) + 40  [0x102cd3c30]
+                                + !     1 sigprocmask  (in libsystem_kernel.dylib) + 8  [0x189ae44b8]
+                                + 1 execlist  (in zsh) + 152  [0x102c85644]
+                                + ! 1 ztrdup  (in zsh) + 36  [0x102cd627c]
+                                + !   1 zalloc  (in zsh) + 56  [0x102cb24bc]
+                                + !     1 szone_malloc_should_clear  (in libsystem_malloc.dylib) + 92  [0x189932afc]
+                                + !       1 tiny_malloc_should_clear  (in libsystem_malloc.dylib) + 292  [0x189933d70]
+                                + !         1 tiny_malloc_from_free_list  (in libsystem_malloc.dylib) + 1272  [0x1899348e0]
+                                + 1 execlist  (in zsh) + 2052  [0x102c85db0]
+                                + ! 1 free_tiny  (in libsystem_malloc.dylib) + 136  [0x189936588]
+                                + !   1 _platform_memset  (in libsystem_platform.dylib) + 108  [0x189b51f3c]
+                                + 1 execlist  (in zsh) + 1936  [0x102c85d3c]
+                                5 execfor  (in zsh) + 352  [0x102cadea4]
+                                + 4 globlist  (in zsh) + 124  [0x102cd75f4]
+                                + ! 2 zglob  (in zsh) + 92  [0x102c90810]
+                                + ! : 2 haswilds  (in zsh) + 436,452  [0x102cce8a4,0x102cce8b4]
+                                + ! 2 zglob  (in zsh) + 64  [0x102c907f4]
+                                + 1 globlist  (in zsh) + 124  [0x102cd75f4]
+                                4 execfor  (in zsh) + 760  [0x102cae03c]
+                                + 4 ugetnode  (in zsh) + 20,36  [0x102cada10,0x102cada20]
+                                2 execfor  (in zsh) + 624  [0x102cadfb4]
+                                + 2 pushheap  (in zsh) + 64  [0x102cb23cc]
+                                2 execfor  (in zsh) + 848  [0x102cae094]
+                                + 1 assignsparam  (in zsh) + 680  [0x102cbb294]
+                                + ! 1 assignstrvalue  (in zsh) + 840  [0x102cbea2c]
+                                + !   1 strsetfn  (in zsh) + 32  [0x102cb9708]
+                                + !     1 free_tiny  (in libsystem_malloc.dylib) + 496  [0x1899366f0]
+                                + !       1 tiny_free_no_lock  (in libsystem_malloc.dylib) + 644  [0x189936af8]
+                                + !         1 tiny_free_list_add_ptr  (in libsystem_malloc.dylib) + 100  [0x189937150]
+                                + 1 assignsparam  (in zsh) + 656  [0x102cbb27c]
+                                1 execfor  (in zsh) + 632  [0x102cadfbc]
+                                + 1 cmdpush  (in zsh) + 40  [0x102cd2580]
+                                1 execfor  (in zsh) + 1320  [0x102cae26c]
+                                  1 freeheap  (in zsh) + 120  [0x102cb25f8]
+
+Total number in stack (recursive counted multiple, when >=5):
+
+Sort by top of stack, same collapsed (when >= 5):
+        __sigsuspend  (in libsystem_kernel.dylib)        3627
+        __fork  (in libsystem_kernel.dylib)        284
+        read  (in libsystem_kernel.dylib)        173
+        os_unfair_lock_unlock  (in libsystem_platform.dylib)        23
+        _objc_atfork_parent  (in libobjc.A.dylib)        19
+        pthread_mutex_unlock  (in libsystem_pthread.dylib)        18
+        _malloc_fork_parent  (in libsystem_malloc.dylib)        7
+        szone_force_unlock  (in libsystem_malloc.dylib)        7
+        libSystem_atfork_parent  (in libSystem.B.dylib)        6
+        tiny_malloc_from_free_list  (in libsystem_malloc.dylib)        6
+
+Binary Images:
+       0x102c70000 -        0x102cf7ff3 +zsh (100.120.1) <9D1F0752-FE33-3410-8346-8C0326F05F68> /bin/zsh
+       0x189740000 -        0x189790e0b  libobjc.A.dylib (912.7) <5C6386BD-F308-3370-BCE9-63D1A89DAB87> /usr/lib/libobjc.A.dylib
+       0x189791000 -        0x18981a507  dyld (1.0.0 - 1165.3) <F635824E-318B-3F0C-842C-C369737F2B68> /usr/lib/dyld
+       0x18981b000 -        0x18981fff8  libsystem_blocks.dylib (90) <6BC23DD4-94AC-3BB0-BC84-93E6D7813ACE> /usr/lib/system/libsystem_blocks.dylib
+       0x189820000 -        0x18986afff  libxpc.dylib (2748.140.10) <987AF6AA-AB54-39CE-84CF-C6D2D1DC9464> /usr/lib/system/libxpc.dylib
+       0x18986b000 -        0x189885fff  libsystem_trace.dylib (1510.140.4) <72852AF1-4BCC-326A-BE13-6C6F22A44E4A> /usr/lib/system/libsystem_trace.dylib
+       0x189886000 -        0x18992ffcf  libcorecrypto.dylib (1638.140.6) <717EA919-DB53-3DDA-AFA1-D87BFD649A83> /usr/lib/system/libcorecrypto.dylib
+       0x189930000 -        0x18996cff7  libsystem_malloc.dylib (521.120.7) <8A69A1AC-6D54-3B64-9860-CD0DB47473ED> /usr/lib/system/libsystem_malloc.dylib
+       0x18996d000 -        0x1899b4fff  libdispatch.dylib (1477.100.9) <1A1CE00A-89CD-36BA-9678-5038AEDD0D8D> /usr/lib/system/libdispatch.dylib
+       0x1899b5000 -        0x1899b7fff  libsystem_featureflags.dylib (86) <F9E56A3B-6350-3D8B-BEC6-6BC253B19355> /usr/lib/system/libsystem_featureflags.dylib
+       0x1899b8000 -        0x189a36ff7  libsystem_c.dylib (1592.100.35) <D30F1830-93D0-3D0B-8CBA-9544E84BFD5B> /usr/lib/system/libsystem_c.dylib
+       0x189a37000 -        0x189ac3ff7  libc++.1.dylib (1700.255.5) <AAA5636D-6F3F-3FA7-9F4A-CF966F0308FE> /usr/lib/libc++.1.dylib
+       0x189ac4000 -        0x189adfffb  libc++abi.dylib (1700.255.5) <68E3EB36-B4BA-30E0-A240-31E942936D06> /usr/lib/libc++abi.dylib
+       0x189ae0000 -        0x189b1affb  libsystem_kernel.dylib (10063.141.2) <71FF45B8-F14E-3666-9E96-6CF58315B91D> /usr/lib/system/libsystem_kernel.dylib
+       0x189b1b000 -        0x189b27fff  libsystem_pthread.dylib (519.120.4) <E03E8478-6F5C-3D21-A79A-58408F514000> /usr/lib/system/libsystem_pthread.dylib
+       0x189b28000 -        0x189b4dff7  libdyld.dylib (1165.3) <C433509D-7CD3-3884-B24D-5D68B9B95627> /usr/lib/system/libdyld.dylib
+       0x189b4e000 -        0x189b55fe7  libsystem_platform.dylib (316.100.10) <B4BF9F89-31D7-3742-8CE7-AB3554F9F525> /usr/lib/system/libsystem_platform.dylib
+       0x189b56000 -        0x189b82ffb  libsystem_info.dylib (583.0.1) <827E8091-520E-3537-8E72-678CED1BAAAE> /usr/lib/system/libsystem_info.dylib
+       0x18cf46000 -        0x18cf50ff3  libsystem_darwin.dylib (1592.100.35) <4DD0C579-C2FC-37A7-B6D7-1BA7268DD8B3> /usr/lib/system/libsystem_darwin.dylib
+       0x18d3bc000 -        0x18d3ccfff  libsystem_notify.dylib (317.120.2) <6902E910-4F75-32C7-BBF3-D46CD6743BFA> /usr/lib/system/libsystem_notify.dylib
+       0x18f212000 -        0x18f22cfff  libsystem_networkextension.dylib (1838.140.5.0.1) <9ADD8A04-8F8C-3916-A9ED-20F6947294BD> /usr/lib/system/libsystem_networkextension.dylib
+       0x18f2a5000 -        0x18f2bcff7  libsystem_asl.dylib (398) <138939F9-52A2-35BF-A8E5-4B2154A3F1B0> /usr/lib/system/libsystem_asl.dylib
+       0x190c97000 -        0x190c9fff3  libsystem_symptoms.dylib (1871.140.6) <3E5E0270-E98C-303F-A566-624005886B88> /usr/lib/system/libsystem_symptoms.dylib
+       0x193e25000 -        0x193e4fffb  libsystem_containermanager.dylib (582.140.2) <230DEE13-0738-3710-A305-2D87D2522E52> /usr/lib/system/libsystem_containermanager.dylib
+       0x194de9000 -        0x194dedfff  libsystem_configuration.dylib (1300.120.2) <4F21FA09-0224-337E-9843-10109C019B1E> /usr/lib/system/libsystem_configuration.dylib
+       0x194dee000 -        0x194df3fff  libsystem_sandbox.dylib (2190.140.13) <DA843F8C-6155-3B7C-99B0-DEB74CF9F109> /usr/lib/system/libsystem_sandbox.dylib
+       0x195c11000 -        0x195c13fff  libquarantine.dylib (172.140.2) <1F514E6F-7D94-356E-A5DC-6E8DCDD40846> /usr/lib/system/libquarantine.dylib
+       0x1963c8000 -        0x1963cdfff  libsystem_coreservices.dylib (152.5.3) <CF38F1DD-9C1B-34D8-8C4D-DC5899486CD1> /usr/lib/system/libsystem_coreservices.dylib
+       0x1966f6000 -        0x19672cff3  libsystem_m.dylib (3252.100.9) <0BE2E009-9F7F-331D-B4AC-F39136591F6F> /usr/lib/system/libsystem_m.dylib
+       0x19672d000 -        0x196730fff  libcharset.1.dylib (102) <56C33416-C658-3BA4-9210-3D463DFDC945> /usr/lib/libcharset.1.dylib
+       0x196731000 -        0x196738ffb  libmacho.dylib (1010.6) <BB441E41-3804-3949-B620-0B29D7975490> /usr/lib/system/libmacho.dylib
+       0x196759000 -        0x196766ff7  libcommonCrypto.dylib (600028.100.1) <B0A2DDA7-420D-3DDE-9FE2-3AFDD2188F14> /usr/lib/system/libcommonCrypto.dylib
+       0x196767000 -        0x196772fff  libunwind.dylib (1700.242) <40A5125B-1225-337B-9D1A-968356D29580> /usr/lib/system/libunwind.dylib
+       0x196773000 -        0x19677afff  liboah.dylib (318.9) <749BB71D-B6F2-3C9D-A96D-65D22F7A42B3> /usr/lib/liboah.dylib
+       0x19677b000 -        0x196784fff  libcopyfile.dylib (196.120.5) <3F3A181E-C6AB-3F09-BC74-37B8AC2BBE57> /usr/lib/system/libcopyfile.dylib
+       0x196785000 -        0x196788fff  libcompiler_rt.dylib (103.2) <D133BCC9-EFB7-3C69-83D2-A33BB6AFA430> /usr/lib/system/libcompiler_rt.dylib
+       0x196789000 -        0x19678dffb  libsystem_collections.dylib (1592.100.35) <E08997D8-CC79-3A51-A3E0-B7706A78CC50> /usr/lib/system/libsystem_collections.dylib
+       0x19678e000 -        0x196791ffb  libsystem_secinit.dylib (147.140.2) <1F043FF2-1603-32F0-A8FB-DC6CBB118581> /usr/lib/system/libsystem_secinit.dylib
+       0x196792000 -        0x196794ffb  libremovefile.dylib (70.100.4) <01FAC88B-53F2-36C6-91EE-1EC62AC11CC8> /usr/lib/system/libremovefile.dylib
+       0x196795000 -        0x196795ffb  libkeymgr.dylib (31) <59B09DF8-56B7-3FAC-94D3-CC946797E98E> /usr/lib/system/libkeymgr.dylib
+       0x196796000 -        0x19679efff  libsystem_dnssd.dylib (2200.140.11) <4E11F9C6-8BD5-380C-A46F-7AB5DD6E91B6> /usr/lib/system/libsystem_dnssd.dylib
+       0x19679f000 -        0x1967a4fff  libcache.dylib (93) <291EEBA0-190B-30E0-A7FF-1ED0CA3505B4> /usr/lib/system/libcache.dylib
+       0x1967a5000 -        0x1967a6fff  libSystem.B.dylib (1345.120.2) <2C0809B3-B3E0-3921-BB57-569E6984EC1A> /usr/lib/libSystem.B.dylib
+       0x1967e2000 -        0x1967e8ff7  libiconv.2.dylib (102) <132D5CDF-9E1F-3595-A92D-22C4B22F7A92> /usr/lib/libiconv.2.dylib
+       0x1b39b5000 -        0x1b39e8ffb  libncurses.5.4.dylib (71.100.2) <1F59EE4F-AD29-3F22-B5FF-54FC8A505CAA> /usr/lib/libncurses.5.4.dylib
+       0x251699000 -        0x25169cfff  libsystem_darwindirectory.dylib (86.0.2) <815D7896-79A3-36C4-8008-DD672DA625C5> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x25169d000 -        0x2516a0fff  libsystem_eligibility.dylib (47.140.3) <ADF6A9D2-C5C3-3A9C-9302-4618D9DFAD21> /usr/lib/system/libsystem_eligibility.dylib
+       0x2516a1000 -        0x2516a4ffb  libsystem_sanitizers.dylib (8) <6BBDFCBC-D608-3318-BC22-2172E5258046> /usr/lib/system/libsystem_sanitizers.dylib
+
