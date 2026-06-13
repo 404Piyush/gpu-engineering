@@ -91,7 +91,7 @@ roadmap document this repo is built around).
 | Project | Tests | Benchmark |
 |---|---:|---|
 | bst-library | 74 assertions, 8 cases | 3.5 M insert/s, 4.8 M find/s |
-| arena-allocator | 143 assertions, 9 cases | 455 M ops/s, ~14x malloc |
+| arena-allocator | 143 assertions, 9 cases | 450 M ops/s, ~5–7x malloc |
 | pipe-shell | 56 assertions, 13 cases | end-to-end shell |
 | **Total** | **273 assertions, 0 failures** | |
 

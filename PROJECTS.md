@@ -125,9 +125,9 @@ N frees to one reset.
 
 - 143 assertions, 9 test cases, all passing.
 - Microbenchmark (`bench/bench_arena.c`):
-  - `arena_alloc`: ~455 M ops/s
-  - `malloc`/`free`: ~33 M ops/s
-  - ~14x faster than the system allocator
+  - `arena_alloc`: ~450 M ops/s
+  - `malloc`/`free`: ~75 M ops/s
+  - ~5–7x faster than the system allocator
 - Run on Apple M-series, single thread, `-O2`.
 
 ### Source
