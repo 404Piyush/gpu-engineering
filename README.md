@@ -76,9 +76,9 @@ notes/year-1/week-NN.md            per-week journal
 - [PROJECTS.md](PROJECTS.md) — full deep-dive on each standalone
   project (architecture, API, benchmarks).
 - [CHANGELOG.md](CHANGELOG.md) — what changed in each weekly commit.
-- [DEPLOY.md](DEPLOY.md) — Vercel deployment runbook for the
-  three live sites.
-- [DNS.md](DNS.md) — the three CNAMEs to add at the DNS provider.
+
+Per-project deployment runbooks (Vercel setup, DNS, custom
+domain) live in each standalone repo under `DEPLOY.md`.
 
 ## License
 
